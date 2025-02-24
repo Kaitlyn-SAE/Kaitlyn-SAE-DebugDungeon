@@ -154,11 +154,11 @@ public class DebugDungeon : MonoBehaviour
     void ConvertStats() // Converts player stats into gameplay values
     {
 
-        player.attackDamage = (int)(player.strength * 1.25); // player strength multiplied by 1.25 is their attack damage 
+        player.attackDamage = (int)(player.strength * 1.45); // player strength multiplied by 1.45 is their attack damage 
         player.armourHealth = (int)(player.armour * 5.45); // Player armour health is armour multiplied by 5.45 which gives their armour health
 
         Debug.Log("Attack Damage = " + player.strength + " * 1.25 = " + player.attackDamage); // Shows the conversion in the console
-        Debug.Log("Armor Health = " + player.armour + " * 5 = " + player.armourHealth); // same as above ^
+        Debug.Log("Armor Health = " + player.armour + " * 5.45 = " + player.armourHealth); // same as above ^
 
         float dodgePercent = player.dodge; // Player dodge is = to their dodge chance (an improvement would be to make it more similar to the strength and armour stats by having it get the inital stat and multiplying it, also would make scaling up from leveling up better)
         float reflect = player.magic;
@@ -197,7 +197,7 @@ public class DebugDungeon : MonoBehaviour
         enemy.dodge = UnityEngine.Random.Range(0, 3 * levelScale);
         enemy.magic = 0; // Only skeletons are capable of doing magic - their magic code is a lil below 
         enemy.health = UnityEngine.Random.Range(20 * levelScale, 45 * levelScale); // Rand health value within range
-        enemy.attackDamage = (int)enemy.strength * 1; // Converting their strength into attack damage
+        enemy.attackDamage = (int)enemy.strength; // Converting their strength into attack damage
         enemy.experienceReward = UnityEngine.Random.Range(1, 5 * levelScale); // Random Scaling xp rewards for defeating them
 
         //The mentioned skeleton magic code
@@ -492,6 +492,7 @@ public class DebugDungeon : MonoBehaviour
 
 /* Known issues:
  * Occasionally we have the enemy attack loop essentially just skipping the player turn which most of the time seems to happen in the boss fight.
+ * Skeleton reflection of damage does not work.
  * When the boss gets killed by their own reflected damage, the game spawns another regular enemy - once this regular enemy is defeated we win the game. - think this stems from line 298
  * Pretty much all of the time when player's dodge the enemy attack the prompt to attack by pressing 5 is printed twice.
  * When you beat an enemy you get your health and armour health increased by 25 and 35% respectively, however when you choose to increase your amour stat it will reset your armour
