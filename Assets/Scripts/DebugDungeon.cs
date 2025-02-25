@@ -160,8 +160,8 @@ public class DebugDungeon : MonoBehaviour
         Debug.Log("Attack Damage = " + player.strength + " * 1.45 = " + player.attackDamage); // Shows the conversion in the console
         Debug.Log("Armor Health = " + player.armour + " * 5.45 = " + player.armourHealth); // same as above ^
 
-        float dodgePercent = player.dodge; // Player dodge is = to their dodge chance (an improvement would be to make it more similar to the strength and armour stats by having it get the inital stat and multiplying it, also would make scaling up from leveling up better)
-        float reflect = player.magic; // Like wise this stat could benefit from the same improvement as the dodge stat.
+        float dodgePercent = (float)(player.dodge * 1.25); // dodge stat * 1.25 is player dodge %
+        float reflect = (float)(player.magic * 1.25); // magic stat * 1.25 is player deflect %
         Debug.Log("Dodge Chance = " + dodgePercent + "%"); // Puts the % chance to dodge in the console
         Debug.Log("Deflect Chance = " + reflect + "%"); // ^ pretty much the same but for magic
     }
@@ -346,7 +346,7 @@ public class DebugDungeon : MonoBehaviour
         Debug.Log("You gained " + enemy.experienceReward + " experience!");
         player.experience += enemy.experienceReward; // add enemy xp to player rewarded xp
 
-        if (player.experience >= xpToLevel && !gameWon) // is player experience greater than or equal to the xp required to level up? checks they haven't already won the game.
+        if (player.experience >= xpToLevel && !gameWon && !isBossBattle) // is player experience greater than or equal to the xp required to level up? checks they haven't already won the game and if it is not a boss battle
         {
             LevelUp(); // If they have met the required to level up and they haven't one - call the level up code
         }
@@ -491,21 +491,19 @@ public class DebugDungeon : MonoBehaviour
 
 
 /* Known issues:
- * Occasionally we have the enemy attack loop essentially just skipping the player turn which most of the time seems to happen in the boss fight.
- * Skeleton reflection of damage does not work.
- * When the boss gets killed by their own reflected damage, the game spawns another regular enemy - once this regular enemy is defeated we win the game. - think this stems from line 298
- * Pretty much all of the time when player's dodge the enemy attack the prompt to attack by pressing 5 is printed twice.
- * When you beat an enemy you get your health and armour health increased by 25 and 35% respectively, however when you choose to increase your amour stat it will reset your armour
+ * 1. Occasionally we have the enemy attack loop essentially just skipping the player turn which most of the time seems to happen in the boss fight.
+ * 2. Skeleton reflection of damage does not work.
+ * 3. When the boss gets killed by their own reflected damage, the game spawns another regular enemy - once this regular enemy is defeated we win the game. (Line 353) [SOLVED - Changed line 349 to include !isBossBattle]
+ * 4. Pretty much all of the time when player's dodge the enemy attack the prompt to attack by pressing 5 is printed twice.
+ * 5. When you beat an enemy you get your health and armour health increased by 25 and 35% respectively, however when you choose to increase your amour stat it will reset your armour
  * to whatever the new armourhealth value it generates is. (e.g. barbarian fights starting with 20 armour health, they dodge enemy attack and then kill the enemy increasing it by 35%
  * to 27, they then level up and choose to increase their armour which then re-does the calculation and brings their armour health down. this can also happen the opposite way where 
  * the player can exploit the fact they will have their armour value set to the new calculation.)
  */
 /* Possible improvements:
- * A proper UI that is done in unity and different buttons using the textmeshpro buttons, etc.
- * Better scaling of stats - essentially in things like dodge when you increase your stat the percentage is only increasing by 1 which makes a negligible difference when you 
- * go from 13% dodge to 14%.
- * More player options when its their turn - think items, running away from the fight, etc
- * Player movement? - Something like giving prompts on where they can go after their fights (like an exploration mechanic)
- * A better leveling system - currently despite the xp increasing for every enemy killed you will pretty much always level up
- * Slowed down gameplay with more halts to stop information from flooding the console log (This is something that should be implemented with the UI ideally)
+ * 1. A proper UI that is done in unity and different buttons using the textmeshpro buttons, etc.
+ * 2. Better scaling of stats - essentially in things like dodge when you increase your stat the percentage is only increasing by 1 which makes a negligible difference when you  go from 13% dodge to 14%. [COMPLETED - Added multiplier like armorhealth and attackdmg]
+ * 3. More player options when its their turn - think items, running away from the fight, etc
+ * 4. Player movement? - Something like giving prompts on where they can go after their fights (like an exploration mechanic)
+ * 5. Slowed down gameplay with more halts to stop information from flooding the console log (This is something that should be implemented with the UI ideally)
  */
