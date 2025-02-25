@@ -118,7 +118,7 @@ public class DebugDungeon : MonoBehaviour
         switch (chosenClass)
         {
             case "Barbarian": // Barbarian Case
-                player.strength = UnityEngine.Random.Range(5, 20) + 15; // Random strength value with a bonus
+                player.strength = UnityEngine.Random.Range(5, 20) + 20; // Random strength value with a bonus
                 player.armour = UnityEngine.Random.Range(1, 10);
                 player.dodge = UnityEngine.Random.Range(1, 10);
                 player.magic = 0; // Mage is the only class with access to the magic stat
@@ -157,11 +157,11 @@ public class DebugDungeon : MonoBehaviour
         player.attackDamage = (int)(player.strength * 1.45); // player strength multiplied by 1.45 is their attack damage 
         player.armourHealth = (int)(player.armour * 5.45); // Player armour health is armour multiplied by 5.45 which gives their armour health
 
-        Debug.Log("Attack Damage = " + player.strength + " * 1.25 = " + player.attackDamage); // Shows the conversion in the console
+        Debug.Log("Attack Damage = " + player.strength + " * 1.45 = " + player.attackDamage); // Shows the conversion in the console
         Debug.Log("Armor Health = " + player.armour + " * 5.45 = " + player.armourHealth); // same as above ^
 
         float dodgePercent = player.dodge; // Player dodge is = to their dodge chance (an improvement would be to make it more similar to the strength and armour stats by having it get the inital stat and multiplying it, also would make scaling up from leveling up better)
-        float reflect = player.magic;
+        float reflect = player.magic; // Like wise this stat could benefit from the same improvement as the dodge stat.
         Debug.Log("Dodge Chance = " + dodgePercent + "%"); // Puts the % chance to dodge in the console
         Debug.Log("Deflect Chance = " + reflect + "%"); // ^ pretty much the same but for magic
     }
@@ -192,13 +192,13 @@ public class DebugDungeon : MonoBehaviour
 
         //This is for getting all the stats of the enemies
         enemy.level = levelScale; // Enemy stats scale with player level
-        enemy.strength = UnityEngine.Random.Range(3 * levelScale, 8 * levelScale); // Rand strength value within a range
+        enemy.strength = UnityEngine.Random.Range(3 * levelScale, 7 * levelScale); // Rand strength value within a range
         enemy.armour = UnityEngine.Random.Range(1 * levelScale, 4 * levelScale);
         enemy.dodge = UnityEngine.Random.Range(0, 3 * levelScale);
         enemy.magic = 0; // Only skeletons are capable of doing magic - their magic code is a lil below 
         enemy.health = UnityEngine.Random.Range(20 * levelScale, 45 * levelScale); // Rand health value within range
         enemy.attackDamage = (int)enemy.strength; // Converting their strength into attack damage
-        enemy.experienceReward = UnityEngine.Random.Range(1, 5 * levelScale); // Random Scaling xp rewards for defeating them
+        enemy.experienceReward = UnityEngine.Random.Range(1, 8 * levelScale); // Random Scaling xp rewards for defeating them
 
         //The mentioned skeleton magic code
         if (enemy.enemyClass == "Skeleton") // Checks if the enemy is a skele
