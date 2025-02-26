@@ -287,7 +287,7 @@ public class DebugDungeon : MonoBehaviour
             if ((player.characterClass == "Mage" || enemy.enemyClass == "Skeleton") && player.magic > 0) // Checking magic stat
             {
                 int reflectChance = random.Next(0, 100); // Rand number to see if player will reflect
-                if (reflectChance <= player.magic) // If reflectchance is greater than or equal to player magic \/
+                if (reflectChance <= player.magic) // If reflectchance is less than or equal to player magic \/
                 {
                     Debug.Log("The attack was reflected!");
                     enemy.health -= damage; // Enemy takes the damage
@@ -305,7 +305,7 @@ public class DebugDungeon : MonoBehaviour
             if (!didReflect) //If damage wasn't reflected \/
             {
                 if (player.armourHealth > 0) // Checking for player armour being below 0
-                {
+               {
                     player.armourHealth -= damage; // player armour - damage
 
                     if (player.armourHealth < 0)
@@ -321,7 +321,7 @@ public class DebugDungeon : MonoBehaviour
                     player.health -= damage;
                 }
                 Debug.Log("Your health: " + player.health);
-                Debug.Log("Your armour health is now: " + player.armourHealth);
+                Debug.Log("Your armor health is now: " + player.armourHealth);
             }
 
         }
