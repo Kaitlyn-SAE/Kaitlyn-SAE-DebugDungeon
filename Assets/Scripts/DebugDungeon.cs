@@ -29,7 +29,7 @@ public class DebugDungeon : MonoBehaviour
         public int magic;
         public int health;
         public int attackDamage;
-        public int experienceReward; // An unt for how much exp the enemy will reward for being defeated
+        public int experienceReward; // An int for how much exp the enemy will reward for being defeated
     }
 
     Player player; // player variable called player to be called upon
